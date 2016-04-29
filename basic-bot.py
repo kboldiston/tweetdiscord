@@ -2,6 +2,9 @@ import discord
 from discord.ext import commands
 import random
 
+#import httplib extensions
+import requests      
+
 description = '''An example bot to showcase the discord module'''
 
 bot = commands.Bot(command_prefix='?', description=description)
@@ -55,6 +58,11 @@ async def cool(ctx):
 async def _bot():
     """Is the bot cool?"""
     await bot.say('Yes, the bot cool.')
+
+
+#query discord to get token
+r=requests.post('https://discordapp.com/api/auth/login'), 
+
 
 bot.run('token')
 
