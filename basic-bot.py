@@ -5,6 +5,8 @@ import random
 #import httplib extensions
 import requests      
 
+import settings
+
 description = '''An example bot to showcase the discord module'''
 
 bot = commands.Bot(command_prefix='?', description=description)
@@ -64,7 +66,7 @@ async def _bot():
 r=requests.post('https://discordapp.com/api/auth/login'), 
 
 
-bot.run('token')
+bot.run(settings.username,settings.password)
 
         
 
