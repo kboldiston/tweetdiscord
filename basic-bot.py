@@ -65,6 +65,7 @@ async def _bot():
 #query discord to get token
 r=requests.post('https://discordapp.com/api/auth/login'), 
 
+print ("Hello World")
 
 bot.run(settings.username,settings.password)
 
