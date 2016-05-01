@@ -17,6 +17,9 @@ async def on_ready():
         print(bot.user.name)
         print(bot.user.id)
         print('----------')
+        for server in bot.servers:
+            print(server)
+        bot.say('Hello There')
 
 @bot.command()
 async def add(left : int, right : int):
@@ -63,7 +66,7 @@ async def _bot():
 
 
 #query discord to get token
-r=requests.post('https://discordapp.com/api/auth/login'), 
+#r=requests.post('https://discordapp.com/api/auth/login'), 
 
 
 bot.run(settings.username,settings.password)
