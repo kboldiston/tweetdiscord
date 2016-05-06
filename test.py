@@ -2,6 +2,7 @@ import discord
 import asyncio
 import settings
 
+
 client = discord.Client()
 
 @client.event
@@ -28,7 +29,7 @@ async def on_message(message):
         await client.send_message(message.channel, 'PONG!')
     elif message.content.startswith('!hello'):
         await client.send_message(message.channel, 'Hello World')
-
-
+    else:
+        return
 
 client.run(settings.token)
