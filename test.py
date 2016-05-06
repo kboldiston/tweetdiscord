@@ -26,6 +26,8 @@ async def on_message(message):
         await client.send_message(message.channel, 'Done sleeping')
     elif message.content.startswith('!ping'):
         await client.send_message(message.channel, 'PONG!')
+    elif message.content.startswith('!hello'):
+        await client.send_message(message.channel, 'Hello World')
 
 
 
