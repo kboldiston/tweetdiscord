@@ -27,4 +27,6 @@ async def on_message(message):
     elif message.content.startswith('!ping'):
         await client.send_message(message.channel, 'PONG!')
 
-client.run(settings.username,settings.password)
+
+
+client.run(settings.token)
