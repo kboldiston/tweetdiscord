@@ -21,8 +21,11 @@ access_token_secret=settings.twitter['access_secret']
 class StdOutListener(StreamListener):
     
     def on_data(self, data):
-        tweet = json.loads(data)
-        print(tweet['text'])
+        tweet  = json.loads(data)
+        output = ""
+        output = output + tweet['user']['screen_name']
+        output = output + ": "+tweet['text']
+        print(output)
         return True
 
     def on_error(self, status):
@@ -34,4 +37,5 @@ if __name__ == '__main__':
     auth.set_access_token(access_token, access_token_secret)
 
     stream = Stream(auth, l)
-    stream.userstream(_with='CodeWisdom')
+    stream.filter(track=['basketball'])
+#   stream.userstream(_following='CodeWisdom')
