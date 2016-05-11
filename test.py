@@ -22,7 +22,14 @@ consumer_secret=settings.twitter['consumer_secret']
 access_token=settings.twitter['access_token']
 access_token_secret=settings.twitter['access_secret']
 
+
 class DiscordTwitter(StreamListener):
+
+    def __init__(self, the_client, the_channel):
+
+        self.client = the_client
+        self.channel = the_channel
+     
     def on_data(self, data):
         tweet = json.loads(data)
         output = ""
@@ -30,15 +37,22 @@ class DiscordTwitter(StreamListener):
         output = output + ": " + tweet['text']
          
         print(output)
-        client.send_message(settings.channel,output)
+
+        self.client.send_message(self.channel,output)
         return True
 
     def on_error(self, status):
         print(status)
-        return False
-
+         
 
 client = discord.Client()
+client.login(settings.token)
+
+@client.event
+async def on_message(message):
+    if message.content.startswith('!hello'):
+        msg = 'Hello {0.author.mention}'.format(message)
+        await client.send_message(message.channel, msg)
 
 @client.event
 async def on_ready():
@@ -47,17 +61,25 @@ async def on_ready():
     print(client.user.id)
     print(settings.channel)
     print('--------')
-    channel = client.get_channel(settings.channel)
     print(channel.name)
     print('on ' + channel.server.name)
-    client.send_message(channel,"hello world")
+    try:
+        await client.send_message(channel,'hello world')
+    except InvalidArgument as e:
+        print(e)
+    except HTTPException as e:
+        print(e)
+      
+auth = OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
 
-client.run(settings.token)
+channel = client.get_channel(settings.channel)
+channels = client.get_all_channels()
+for achannel in channels:
+    print(achannel)
 
-if __name__ == '__main__':
-    auth = OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_token, access_token_secret)
-
-    stream = Stream(auth, DiscordTwitter)
-    stream.filter(track=['basketball'])
-#   stream.userstream(_following='CodeWisdom')
+print(client)
+print(channel)
+stream = Stream(auth=auth, listener=DiscordTwitter(client, settings.channel))
+stream.filter(track=['basketball'])
+#stream.userstream(_following='CodeWisdom')
