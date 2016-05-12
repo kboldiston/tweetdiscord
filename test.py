@@ -75,7 +75,7 @@ auth.set_access_token(access_token, access_token_secret)
 
 channel = client.get_channel(settings.channel)
 channels = client.get_all_channels()
-for achannel in channels:
+for achannel in client.channels:
     print(achannel)
 
 print(client)
